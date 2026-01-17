@@ -35,17 +35,15 @@ jobs:
           echo "changed=$(cat changed.flag)" >> $GITHUB_OUTPUT
         id: run
         
-      - name: Commit & push changes
-        if: steps.run.outputs.changed == '1'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ changed.flag
-          git commit -m "chore: weekly Taipower data update" || echo "Nothing to commit"
-          git push
-      
-
-      - name: No changes
-        if: steps.run.outputs.changed != '1'
-        run: |
-          echo "No annual changes detected; weekly files were still written locally but not committed by design."
+      jobs:
+        commit-and-push:
+          runs-on: ubuntu-latest
+          steps:
+            - name: Commit & push changes
+              if: steps.run.outputs.changed == '1'
+              run: |
+                git config user.name "github-actions[bot]"
+                git config user.email "github-actions[bot]@users.noreply.github.com"
+                git add data/ changed.flag
+                git commit -m "chore: weekly Taipower data update" || echo "Nothing to commit"
+                git push

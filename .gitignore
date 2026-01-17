@@ -3,16 +3,22 @@ __pycache__/
 *.pyc
 
 # ---- Virtual environments ----
+# ---- Virtual Environment ----
 venv/
 .venv/
 
 # ---- macOS ----
 .DS_Store
+# ---- OS-related Files ----
 **/.DS_Store
 
 # ---- Editors / IDE ----
+# ---- Editor and IDE Settings ----
 .vscode/
 
 # ---- Data & docs (generated / local) ----
 data/
+# ---- User Folders ----
 docs/
+/data/
+!app/data/
