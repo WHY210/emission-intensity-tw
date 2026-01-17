@@ -36,7 +36,7 @@ jobs:
       - name: Run crawler
         id: run
         run: |
-          python data/crawler/fetch_taipower.py
+          python crawler/fetch_taipower.py
           echo "changed=$(cat changed.flag)" >> "$GITHUB_OUTPUT"
 
       - name: Commit & push changes
