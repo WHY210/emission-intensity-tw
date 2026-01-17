@@ -39,14 +39,16 @@ from app.module import (
 
 
 # Parameter definition
-flags.DEFINE_string("data_dir", "./data/2024", "Directory for data.") # year!!!
-flags.DEFINE_string("result_dir", "./results/2024", "Directory for result.") # year!!!
+flags.DEFINE_string("data_dir", "./data/2025", "Directory for data.") # year!!!
+flags.DEFINE_string("result_dir", "./results/2025", "Directory for result.") # year!!!
 flags.DEFINE_string("station_file", "powerplants_info.csv","file for power plant information.")
 flags.DEFINE_string("capacity_data", "capacity.csv","file for target energy capacity data.")
 flags.DEFINE_list("raw_pg_data", 
                   [
-                    "各機組過去發電量20240501-20240731.json", 
-                    "各機組過去發電量20240801-20241031.json", 
+                    "各機組過去發電量20241201-20250228.json", 
+                    "各機組過去發電量20250301-20250531.json", 
+                    # "各機組過去發電量20240801-20241031.json", 
+                    # "各機組過去發電量20241101-20250131.json",
                     # "各機組過去發電量20220101-20220331.json", 
                     # "各機組過去發電量20220401-20220630.json", 
                     # "各機組過去發電量20220701-20220930.json", 
@@ -55,8 +57,10 @@ flags.DEFINE_list("raw_pg_data",
                   "file for power generation.")
 flags.DEFINE_list("power_flow_data", 
                   [
-                    "pg_flow_5_7.json", 
-                    "pg_flow_8_10.json", 
+                    "pg_flow_12_02.json", 
+                    "pg_flow_03_05.json", 
+                    # "pg_flow_8_10.json", 
+                    # "pg_flow_11_01.json",
                     # "pg_flow_1_3.json", 
                     # "pg_flow_4_6.json", 
                     # "pg_flow_7_9.json", 
@@ -65,8 +69,10 @@ flags.DEFINE_list("power_flow_data",
                   "file for power flow data.")
 flags.DEFINE_list("datetime_range", 
                   [
-                    pd.date_range(start="2024-05-01 00:00:00", end="2024-07-31 23:00:00", freq='h'),
-                    pd.date_range(start="2024-08-01 00:00:00", end="2024-10-31 23:00:00", freq='h'),
+                    pd.date_range(start="2024-12-01 00:00:00", end="2025-02-28 23:00:00", freq='h'),
+                    pd.date_range(start="2025-03-01 00:00:00", end="2025-05-31 23:00:00", freq='h'),
+                    # pd.date_range(start="2024-08-01 00:00:00", end="2024-10-31 23:00:00", freq='h'),
+                    # pd.date_range(start="2024-11-01 00:00:00", end="2025-01-31 23:00:00", freq='h'),
                 #     pd.date_range(start="2021-01-01 00:00:00", end="2021-03-31 23:00:00", freq='h'),
                 #     pd.date_range(start="2021-04-01 00:00:00", end="2021-06-30 23:00:00", freq='h'),
                 #     pd.date_range(start="2021-07-01 00:00:00", end="2021-09-30 23:00:00", freq='h'),
@@ -77,7 +83,8 @@ flags.DEFINE_list("datetime_range",
 flags.DEFINE_list("data_period_list", 
                   [
                     # "1~3", "4~6", "7~9", "10~12"
-                    "5~7", "8~10"
+                    # "5~7", "8~10", "11~01"
+                    "12~2", "3~5"
                   ],
                   "data period for power_flow_data and raw_pg_data")
 flags.DEFINE_list("fuel_type", 

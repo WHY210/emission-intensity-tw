@@ -1,18 +1,18 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-
 # ---- Python ----
-**/__pycache__/
+__pycache__/
+*.pyc
 
-# ---- 虛擬環境 ----
+# ---- Virtual environments ----
 venv/
+.venv/
 
-# ---- 作業系統相關 ----
+# ---- macOS ----
+.DS_Store
 **/.DS_Store
-$RECYCLE.BIN/
 
-# ---- 編輯器與 IDE 設定檔 ----
+# ---- Editors / IDE ----
 .vscode/
 
-# ---- User資料夾 ----
-docs/
+# ---- Data & docs (generated / local) ----
 data/
+docs/
