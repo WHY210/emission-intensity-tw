@@ -4,10 +4,14 @@ on:
   schedule:
     # GitHub cron 用 UTC：台灣週一 09:05 = UTC 01:05
     - cron: "5 1 * * 1"
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: taipower-weekly
+  cancel-in-progress: false
 
 jobs:
   crawl:
@@ -30,20 +34,20 @@ jobs:
           pip install requests
 
       - name: Run crawler
+        id: run
         run: |
           python data/crawler/fetch_taipower.py
-          echo "changed=$(cat changed.flag)" >> $GITHUB_OUTPUT
-        id: run
-        
-      jobs:
-        commit-and-push:
-          runs-on: ubuntu-latest
-          steps:
-            - name: Commit & push changes
-              if: steps.run.outputs.changed == '1'
-              run: |
-                git config user.name "github-actions[bot]"
-                git config user.email "github-actions[bot]@users.noreply.github.com"
-                git add data/ changed.flag
-                git commit -m "chore: weekly Taipower data update" || echo "Nothing to commit"
-                git push
+          echo "changed=$(cat changed.flag)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit & push changes
+        if: steps.run.outputs.changed == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ changed.flag
+          git commit -m "chore: weekly Taipower data update" || echo "Nothing to commit"
+          git push
+
+      - name: No changes
+        if: steps.run.outputs.changed != '1'
+        run: echo "No changes detected; skipping commit."
